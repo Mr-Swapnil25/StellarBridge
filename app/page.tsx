@@ -108,7 +108,7 @@ export default function Home() {
                 cloud
               </span>
               <h1 className="font-headline-md text-[var(--text-headline-md)] font-bold tracking-tight text-slate-900 drop-shadow-sm">
-                Stellar Split
+                StellarBridge
               </h1>
             </div>
             {/* Wallet button moved here for mobile if needed, or keep it below */}
@@ -334,10 +334,10 @@ export default function Home() {
         <div className="flex flex-col md:flex-row justify-between items-center w-full px-[var(--spacing-container-padding)] py-[var(--spacing-stack-md)] max-w-7xl mx-auto gap-4">
           <div className="flex items-center gap-2">
             <span className="material-symbols-outlined text-slate-800 text-xl drop-shadow-sm">cloud</span>
-            <span className="text-slate-900 font-bold drop-shadow-sm">Stellar Split</span>
+            <span className="text-slate-900 font-bold drop-shadow-sm">StellarBridge</span>
           </div>
           <p className="font-label-sm text-[var(--text-label-sm)] text-slate-600 drop-shadow-sm">
-            © 2024 Stellar Split. Hand-woven with care.
+            © 2024 StellarBridge. Hand-woven with care.
           </p>
         </div>
       </footer>

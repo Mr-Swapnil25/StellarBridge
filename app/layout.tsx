@@ -9,7 +9,7 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
-  title: "Stellar Split | Premium Web3 Bill Splitting",
+  title: "StellarBridge | Premium Web3 Bill Splitting",
   description: "Softly divide your expenses on the Stellar network.",
 };
 
