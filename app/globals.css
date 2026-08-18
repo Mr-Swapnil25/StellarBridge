@@ -1,0 +1,128 @@
+@import "tailwindcss";
+
+@theme {
+  --color-cotton-pink: #ffb6c1;
+  --color-cotton-blue: #add8e6;
+  --color-cotton-lavender: #e6e6fa;
+  --color-cotton-bg: #ffd1dc;
+
+  --spacing-gutter: 16px;
+  --spacing-stack-sm: 12px;
+  --spacing-stack-lg: 48px;
+  --spacing-unit: 8px;
+  --spacing-container-padding: 24px;
+  --spacing-stack-md: 24px;
+
+  --font-label-lg: "Outfit", sans-serif;
+  --font-headline-xl: "Outfit", sans-serif;
+  --font-body-md: "Outfit", sans-serif;
+  --font-headline-md: "Outfit", sans-serif;
+  --font-headline-lg: "Outfit", sans-serif;
+  --font-body-lg: "Outfit", sans-serif;
+  --font-label-sm: "Outfit", sans-serif;
+
+  --text-label-lg: 14px;
+  --text-label-lg--line-height: 20px;
+  --text-label-lg--letter-spacing: 0.05em;
+  --text-label-lg--font-weight: 600;
+
+  --text-headline-xl: 48px;
+  --text-headline-xl--line-height: 56px;
+  --text-headline-xl--letter-spacing: -0.02em;
+  --text-headline-xl--font-weight: 700;
+
+  --text-body-md: 16px;
+  --text-body-md--line-height: 24px;
+  --text-body-md--font-weight: 400;
+
+  --text-headline-md: 24px;
+  --text-headline-md--line-height: 32px;
+  --text-headline-md--font-weight: 600;
+
+  --text-headline-lg: 32px;
+  --text-headline-lg--line-height: 40px;
+  --text-headline-lg--font-weight: 600;
+
+  --text-body-lg: 18px;
+  --text-body-lg--line-height: 28px;
+  --text-body-lg--font-weight: 400;
+
+  --text-label-sm: 12px;
+  --text-label-sm--line-height: 16px;
+  --text-label-sm--font-weight: 500;
+}
+
+body {
+  background-color: var(--color-cotton-bg);
+  min-height: 100vh;
+  overflow-x: hidden;
+  font-family: 'Outfit', sans-serif;
+}
+
+.felt-texture {
+  position: relative;
+}
+
+.felt-texture::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.4;
+  pointer-events: none;
+  background-image: url("https://www.transparenttextures.com/patterns/felt.png");
+  z-index: 10;
+  border-radius: inherit;
+}
+
+.grain-texture::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0.15;
+  z-index: 9999;
+  background-image: url("https://www.transparenttextures.com/patterns/stardust.png");
+}
+
+.puffy-shadow {
+  box-shadow: 
+      10px 10px 20px rgba(0, 0, 0, 0.1),
+      -10px -10px 20px rgba(255, 255, 255, 0.8),
+      inset 2px 2px 5px rgba(255, 255, 255, 0.5),
+      inset -2px -2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.inset-puffy {
+  box-shadow: 
+      inset 8px 8px 16px rgba(0, 0, 0, 0.1),
+      inset -8px -8px 16px rgba(255, 255, 255, 0.8);
+}
+
+.cotton-gradient {
+  background: linear-gradient(135deg, #e6e6fa 0%, #add8e6 100%);
+}
+
+.step-button {
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.step-button:active {
+  transform: scale(0.92);
+  box-shadow: inset 4px 4px 8px rgba(0,0,0,0.1), inset -4px -4px 8px rgba(255,255,255,0.8);
+}
+
+.pulse-soft {
+  animation: soft-pulse 3s infinite ease-in-out;
+}
+
+@keyframes soft-pulse {
+  0%, 100% { transform: scale(1); box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.1), -10px -10px 20px rgba(255, 255, 255, 0.8); }
+  50% { transform: scale(1.02); box-shadow: 15px 15px 25px rgba(0, 0, 0, 0.15), -15px -15px 25px rgba(255, 255, 255, 0.9); }
+}
+
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
