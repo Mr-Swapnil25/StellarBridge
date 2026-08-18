@@ -97,8 +97,8 @@ StellarBridge is a modern, Web3-native bill-splitting application designed for g
 - Your Freighter wallet must be set to the **Testnet** network.
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/bapidas777/Stellar-Split.git
-cd split-bill-calculator
+git clone https://github.com/Mr-Swapnil25/StellarBridge
+cd StellarBridge
 ```
 
 stellarbridge/
@@ -123,7 +123,7 @@ Navigate to [http://localhost:3000](http://localhost:3000) in your browser.
 - **Icons & UI:** Google Material Symbols, Google Fonts (`Outfit`)
 
 ---
-git clone https://github.com/bapidas777/Stellar-Split.git
-cd stellarbridge
+git clone https://github.com/Mr-Swapnil25/StellarBridge
+cd StellarBridge
   <p>Built with ☁️ on the Stellar Network</p>
 </div>
