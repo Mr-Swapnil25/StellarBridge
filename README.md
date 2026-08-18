@@ -1,5 +1,4 @@
 <div align="center">
-  <img src="demo-img/hero.png" alt="Stellar Split Hero" width="800" />
   <h1>☁️ Stellar Split: A Web3 Bill Splitting Calculator</h1>
   <p><strong>A premium, tactile decentralized application built on the Stellar Testnet for fairly dividing expenses.</strong></p>
 </div>
