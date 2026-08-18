@@ -55,6 +55,10 @@ export default function Home() {
       setStatusMessage("Please enter a recipient address.");
       return;
     }
+    if (recipient === publicKey) {
+      setStatusMessage("Cannot send payment to the same account.");
+      return;
+    }
     if (parseFloat(amountPerPerson) <= 0) {
       setStatusMessage("Amount per person must be greater than 0.");
       return;

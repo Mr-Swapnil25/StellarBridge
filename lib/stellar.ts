@@ -22,8 +22,21 @@ export async function buildTransaction(
   amount: string
 ) {
   try {
+    // Basic validation: prevent sending to the same account
+    if (senderPublicKey === recipientPublicKey) {
+      throw new Error("Cannot send a payment to the same account.");
+    }
+
+    // Ensure recipient exists on the Testnet. For native XLM payments, destination must exist
+    // (otherwise a createAccount operation is required). This avoids Horizon returning a 400.
+    try {
+      await server.loadAccount(recipientPublicKey);
+    } catch (err) {
+      throw new Error("Destination account does not exist on the Testnet. Fund the account or use a Create Account operation.");
+    }
+
     const sourceAccount = await server.loadAccount(senderPublicKey);
-    
+
     const transaction = new TransactionBuilder(sourceAccount, {
       fee: "100", // Default base fee, or you can fetch it
       networkPassphrase: NETWORK_PASSPHRASE,
@@ -47,8 +60,9 @@ export async function buildTransaction(
 
 export async function submitTransaction(signedTxXdr: string) {
   try {
-    const transaction = TransactionBuilder.fromXDR(signedTxXdr, NETWORK_PASSPHRASE);
-    const response = await server.submitTransaction(transaction as Transaction);
+    // Use Transaction.fromXDR to deserialize a signed transaction XDR
+    const transaction = Transaction.fromXDR(signedTxXdr, NETWORK_PASSPHRASE);
+    const response = await server.submitTransaction(transaction);
     return response;
   } catch (error) {
     console.error("Error submitting transaction:", error);
