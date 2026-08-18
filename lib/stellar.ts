@@ -1,4 +1,13 @@
-import { Horizon, TransactionBuilder, Networks, Asset, Operation, TimeoutInfinite, Transaction } from "@stellar/stellar-sdk";
+import { Horizon, TransactionBuilder, Networks, Asset, Operation } from "@stellar/stellar-sdk";
+
+type PaymentHistoryRecord = {
+  from: string;
+  to: string;
+  amount: string;
+  asset_type: string;
+  asset_code?: string;
+  transaction_hash: string;
+};
 
 // Define the testnet horizon URL
 const HORIZON_URL = "https://horizon-testnet.stellar.org";
@@ -31,7 +40,7 @@ export async function buildTransaction(
     // (otherwise a createAccount operation is required). This avoids Horizon returning a 400.
     try {
       await server.loadAccount(recipientPublicKey);
-    } catch (err) {
+    } catch {
       throw new Error("Destination account does not exist on the Testnet. Fund the account or use a Create Account operation.");
     }
 
@@ -60,8 +69,7 @@ export async function buildTransaction(
 
 export async function submitTransaction(signedTxXdr: string) {
   try {
-    // Use Transaction.fromXDR to deserialize a signed transaction XDR
-    const transaction = Transaction.fromXDR(signedTxXdr, NETWORK_PASSPHRASE);
+    const transaction = TransactionBuilder.fromXDR(signedTxXdr, NETWORK_PASSPHRASE);
     const response = await server.submitTransaction(transaction);
     return response;
   } catch (error) {
@@ -70,7 +78,7 @@ export async function submitTransaction(signedTxXdr: string) {
   }
 }
 
-export async function fetchRecentPayments(publicKey: string) {
+export async function fetchRecentPayments(publicKey: string): Promise<PaymentHistoryRecord[]> {
   try {
     const payments = await server
       .payments()
@@ -79,10 +87,30 @@ export async function fetchRecentPayments(publicKey: string) {
       .limit(10)
       .call();
       
-    return payments.records;
+    return payments.records.flatMap((record) => {
+      const payment = record as Partial<PaymentHistoryRecord>;
+
+      if (
+        typeof payment.from !== "string" ||
+        typeof payment.to !== "string" ||
+        typeof payment.amount !== "string" ||
+        typeof payment.asset_type !== "string" ||
+        typeof payment.transaction_hash !== "string"
+      ) {
+        return [];
+      }
+
+      return [{
+        from: payment.from,
+        to: payment.to,
+        amount: payment.amount,
+        asset_type: payment.asset_type,
+        asset_code: payment.asset_code,
+        transaction_hash: payment.transaction_hash,
+      }];
+    });
   } catch (error) {
     console.error("Error fetching history:", error);
     return [];
   }
 }
-

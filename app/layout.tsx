@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Outfit } from "next/font/google";
 import "./globals.css";
 
+/* eslint-disable @next/next/no-page-custom-font */
+
 const outfit = Outfit({
   variable: "--font-outfit",
   subsets: ["latin"],

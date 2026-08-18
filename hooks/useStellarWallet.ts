@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { StellarWalletsKit, Networks, KitEventType } from "@creit.tech/stellar-wallets-kit";
+import { StellarWalletsKit, Networks } from "@creit.tech/stellar-wallets-kit";
 import { FreighterModule, FREIGHTER_ID } from "@creit.tech/stellar-wallets-kit/modules/freighter";
 import { getTestnetBalance } from "../lib/stellar";
 
@@ -30,8 +30,10 @@ export function useStellarWallet() {
     // Try to restore session if already connected
     const savedKey = localStorage.getItem("stellar_pubkey");
     if (savedKey) {
-      setPublicKey(savedKey);
-      fetchBalance(savedKey);
+      void Promise.resolve().then(() => {
+        setPublicKey(savedKey);
+        void fetchBalance(savedKey);
+      });
     }
   }, [fetchBalance]);
 

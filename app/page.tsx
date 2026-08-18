@@ -4,6 +4,12 @@ import { useState, useMemo, useEffect } from "react";
 import { useStellarWallet } from "../hooks/useStellarWallet";
 import { buildTransaction, submitTransaction, fetchRecentPayments } from "../lib/stellar";
 
+type PaymentHistoryRecord = Awaited<ReturnType<typeof fetchRecentPayments>>[number];
+
+function getErrorMessage(error: unknown) {
+  return error instanceof Error ? error.message : "Payment failed";
+}
+
 export default function Home() {
   const {
     publicKey,
@@ -22,16 +28,25 @@ export default function Home() {
   const [statusMessage, setStatusMessage] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [activeTab, setActiveTab] = useState<'split' | 'history'>('split');
-  const [history, setHistory] = useState<any[]>([]);
+  const [history, setHistory] = useState<PaymentHistoryRecord[]>([]);
   const [isLoadingHistory, setIsLoadingHistory] = useState(false);
 
   useEffect(() => {
     if (activeTab === 'history' && publicKey) {
-      setIsLoadingHistory(true);
-      fetchRecentPayments(publicKey).then((records) => {
-        setHistory(records);
-        setIsLoadingHistory(false);
-      });
+      let isActive = true;
+
+      void (async () => {
+        setIsLoadingHistory(true);
+        const records = await fetchRecentPayments(publicKey);
+        if (isActive) {
+          setHistory(records);
+          setIsLoadingHistory(false);
+        }
+      })();
+
+      return () => {
+        isActive = false;
+      };
     }
   }, [activeTab, publicKey]);
 
@@ -85,9 +100,9 @@ export default function Home() {
       // Reset form
       setBillAmount("");
       setRecipient("");
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error(error);
-      setStatusMessage(`Error: ${error.message || "Payment failed"}`);
+      setStatusMessage(`Error: ${getErrorMessage(error)}`);
     } finally {
       setIsSubmitting(false);
     }
