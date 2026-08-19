@@ -97,7 +97,7 @@ split-bill-calculator/
 
 ### Prerequisites
 - Node.js (v18 or higher recommended)
-StellarBridge is a modern, Web3-native bill-splitting application designed for groups of friends to effortlessly divide their expenses. Leveraging the incredible speed and negligible fees of the Stellar network, this dApp provides a frictionless way to calculate your exact share and immediately settle your debt with a native XLM transfer.
+**StellarBridge is a modern, Web3-native bill-splitting application designed for groups of friends to effortlessly divide their expenses. Leveraging the incredible speed and negligible fees of the Stellar network, this dApp provides a frictionless way to calculate your exact share and immediately settle your debt with a native XLM transfer.**
 - Your Freighter wallet must be set to the **Testnet** network.
 ### 1. Clone the Repository
 ```bash
@@ -123,7 +123,7 @@ Navigate to [http://localhost:3000](http://localhost:3000) in your browser.
 ---
 
 ## 🛠️ Technology Stack
-- **Framework:** Next.js 15 (App Router)
+- **Framework:** Next.js 15 (App Router).
 - **Icons & UI:** Google Material Symbols, Google Fonts (`Outfit`)
 
 ---
