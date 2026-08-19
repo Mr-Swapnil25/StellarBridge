@@ -49,6 +49,11 @@ This project successfully implements all fundamental Stellar development concept
 
 Here is a visual demonstration proving all White Belt requirements have been successfully met:
 
+### Submission Proof Notes
+- **Wallet options available:** The app presents the wallet connection flow for supported Stellar wallets, including Freighter, before connecting and signing a transaction.
+- **Deployed contract address:** Not applicable for this project. StellarBridge performs native XLM transfers on the Stellar Testnet and does not deploy a smart contract.
+- **Transaction hash verification:** After a successful payment, the app displays the transaction hash in the UI, and the transaction can be verified on Stellar Explorer for confirmation.
+
 ### 1. Wallet Connection & Balance Display
 *The wallet is successfully connected. The user's precise XLM balance and abbreviated public key are displayed elegantly in the top right pill. The application automatically calculates the amount per person based on the input.*
 ![Wallet Connected and Balance](demo-img/hero.png)
