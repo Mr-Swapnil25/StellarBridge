@@ -1,0 +1,15 @@
+{
+  "name": "stellar-level2-client",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@creit.tech/stellar-wallets-kit": "^1.5.0",
+    "@stellar/stellar-sdk": "^16.0.1"
+  },
+  "devDependencies": {
+    "typescript": "^5"
+  }
+}
