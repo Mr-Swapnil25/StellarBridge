@@ -1,11 +1,31 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { StellarWalletsKit, Networks } from "@creit.tech/stellar-wallets-kit";
-import { FreighterModule, FREIGHTER_ID } from "@creit.tech/stellar-wallets-kit/modules/freighter";
+import {
+  StellarWalletsKit,
+  WalletNetwork,
+  FreighterModule,
+  FREIGHTER_ID,
+} from "@creit.tech/stellar-wallets-kit";
 import { getTestnetBalance } from "../lib/stellar";
 
-let isKitInitialized = false;
+let walletKit: StellarWalletsKit | null = null;
+
+function getWalletKit() {
+  if (typeof window === "undefined") {
+    throw new Error("Wallet access is only available in the browser.");
+  }
+
+  if (!walletKit) {
+    walletKit = new StellarWalletsKit({
+      selectedWalletId: FREIGHTER_ID,
+      network: WalletNetwork.TESTNET,
+      modules: [new FreighterModule()],
+    });
+  }
+
+  return walletKit;
+}
 
 export function useStellarWallet() {
   const [publicKey, setPublicKey] = useState<string | null>(null);
@@ -18,15 +38,8 @@ export function useStellarWallet() {
   }, []);
 
   useEffect(() => {
-    if (!isKitInitialized && typeof window !== "undefined") {
-      StellarWalletsKit.init({
-        modules: [new FreighterModule()],
-      });
-      StellarWalletsKit.setNetwork(Networks.TESTNET);
-      StellarWalletsKit.setWallet(FREIGHTER_ID);
-      isKitInitialized = true;
-    }
-    
+    getWalletKit();
+
     // Try to restore session if already connected
     const savedKey = localStorage.getItem("stellar_pubkey");
     if (savedKey) {
@@ -41,7 +54,7 @@ export function useStellarWallet() {
     setIsConnecting(true);
     try {
       // Actually authModal opens the kit UI, we can also use fetchAddress if we set Freighter as default
-      const { address } = await StellarWalletsKit.fetchAddress();
+      const { address } = await getWalletKit().getAddress();
       setPublicKey(address);
       localStorage.setItem("stellar_pubkey", address);
       await fetchBalance(address);
@@ -54,7 +67,7 @@ export function useStellarWallet() {
 
   const disconnect = async () => {
     try {
-      await StellarWalletsKit.disconnect();
+      await getWalletKit().disconnect();
     } catch (error) {
       console.error(error);
     }
@@ -65,8 +78,8 @@ export function useStellarWallet() {
 
   const signTransaction = async (xdr: string) => {
     if (!publicKey) throw new Error("Wallet not connected");
-    const { signedTxXdr } = await StellarWalletsKit.signTransaction(xdr, {
-      networkPassphrase: Networks.TESTNET,
+    const { signedTxXdr } = await getWalletKit().signTransaction(xdr, {
+      networkPassphrase: WalletNetwork.TESTNET,
       address: publicKey,
     });
     return signedTxXdr;

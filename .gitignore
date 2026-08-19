@@ -39,3 +39,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+npm run lint
+npm run build
+# local agent instructions
+AGENTS.md
+CLAUDE.md
