@@ -24,7 +24,10 @@ stellar contract deploy --wasm target/wasm32-unknown-unknown/release/bill_split_
 Copy the printed contract ID into the separate Level 2 frontend configuration. The deployer must be a funded testnet account; no secret key is stored in this repository.
 
 ### Deployed Contract ID (Testnet)
-`CCZ7T5C5DZXOFSK27M6B23YZXYQG4C7J6UUXW3J7Z462ZJ6GKS2N45O5`
+`CAJOUQF3OK4D57W7I7MPC3A6VPEZQCQYXPIAY37K4FJP62OPPZ7ZZLDI`
+
+🔗 [View on Stellar Lab](https://lab.stellar.org/r/testnet/contract/CAJOUQF3OK4D57W7I7MPC3A6VPEZQCQYXPIAY37K4FJP62OPPZ7ZZLDI)  
+🔗 [View on Stellar Expert](https://stellar.expert/explorer/testnet/contract/CAJOUQF3OK4D57W7I7MPC3A6VPEZQCQYXPIAY37K4FJP62OPPZ7ZZLDI)
 
 ## Client setup
 
